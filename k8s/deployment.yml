@@ -1,21 +1,20 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp-node
+  name: ms-tipo-de-cambio
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: myapp-node
+      app: ms-tipo-de-cambio
   template:
     metadata:
       labels:
-        app: myapp-node
+        app: ms-tipo-de-cambio
     spec:
       containers:
-        - name: myapp-node
-          image: tesiscloud.azurecr.io/app-tipo-cambio-node:latest   # será sustituida por el tag github.sha
+        - name: ms-tipo-de-cambio
+          image: servitekcloud.azurecr.io/ms-tipo-de-cambio:latest   # será sustituida por el tag github.sha
           ports:
             - containerPort: 3002
