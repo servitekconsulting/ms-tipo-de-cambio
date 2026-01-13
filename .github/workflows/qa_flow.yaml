@@ -1,9 +1,9 @@
-name: CD Desarrollo Flow
+name: Pipeline CD Desarrollo
 
 on:
   push:
     branches:
-      - master
+      - develop
   workflow_dispatch:
 
 permissions:
@@ -44,7 +44,7 @@ jobs:
     needs: [build_deploy]
     with:
       environment: qa
-      owasp_target: 'http://4.152.197.247/'
+      owasp_target: 'http://135.237.235.57/'
     secrets: inherit
 
   chatgpt-failure-advisor:
