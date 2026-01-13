@@ -24,8 +24,8 @@ jobs:
 
       # --- SonarCloud ---
       sonar_enabled: true
-      sonar_project_key: "developer1-servitekconsulting_ms-tipo-de-cambio"
-      sonar_organization: "developer1-servitekconsulting"
+      sonar_project_key: "servitekconsulting_ms-tipo-de-cambio"
+      sonar_organization: "servitekconsulting"
       sonar_host_url: "https://sonarcloud.io"
       sonar_additional_args: >
         -Dsonar.sources=src
