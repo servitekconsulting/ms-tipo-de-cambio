@@ -1,0 +1,56 @@
+name: Pipeline CI Pull Request
+
+on:
+  pull_request:
+    branches: [ master ]
+    types: [ opened, synchronize, reopened, ready_for_review ]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write     # permite crear Issues con hallazgos del ZAP
+
+jobs:
+  pr_checks:
+    uses: servitekconsulting/reusable-workflows/.github/workflows/pull_request_node.yaml@main
+    with:
+      # --- Node & build/test ---
+      node_version: "20"
+      package_manager: "npm"                # npm | yarn | pnpm
+      working_directory: "."               # si tu app vive en subcarpetas, ajusta
+      run_build: true                      # ejecutar "build"
+      build_script: "build"                # npm run build / yarn build / pnpm build
+      test_script: "test -- --coverage"    # genera lcov para Sonar; ajusta a tu proyecto
+
+      # --- SonarCloud ---
+      sonar_enabled: true
+      sonar_project_key: "developer1-servitekconsulting_ms-tipo-de-cambio"
+      sonar_organization: "developer1-servitekconsulting"
+      sonar_host_url: "https://sonarcloud.io"
+      sonar_additional_args: >
+        -Dsonar.sources=src
+        -Dsonar.tests=src
+        -Dsonar.test.inclusions=**/*.test.ts,**/*.spec.ts,**/*.test.js,**/*.spec.js
+        -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+        -Dsonar.sourceEncoding=UTF-8
+
+      # --- Snyk (SCA) ---
+      snyk_enabled: true
+      snyk_continue_on_error: true          # cambia a false para romper el pipeline si detecta issues
+      snyk_args: "--file=package.json --severity-threshold=high"
+
+      # --- OWASP ZAP (DAST) ---
+      owasp_enabled: true
+      owasp_target: "http://135.237.235.57/"
+      owasp_cmd_options: "-a"
+      owasp_environment: "dev"
+
+      # --- IA opcional ---
+      review_enabled: true
+      review_label: "chatgpt-review"
+      review_patterns: "*.js,*.ts,package.json,package-lock.json,yarn.lock,pnpm-lock.yaml"
+
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
