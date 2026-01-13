@@ -1,0 +1,24 @@
+name: QA Flow (Node)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-image:
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    uses: Developer1-ServitekConsulting/reusable-workflows/.github/workflows/docker-build-node.yml@main
+    secrets: inherit
+
+    with:
+      working-directory: .
+      node-version: '20'
+      package-manager: 'npm'
+      acr-repository: app-tipo-cambio-node
+

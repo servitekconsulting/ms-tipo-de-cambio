@@ -1,0 +1,21 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-node
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp-node
+  template:
+    metadata:
+      labels:
+        app: myapp-node
+    spec:
+      containers:
+        - name: myapp-node
+          image: tesiscloud.azurecr.io/app-tipo-cambio-node:latest   # será sustituida por el tag github.sha
+          ports:
+            - containerPort: 3002
