@@ -20,7 +20,7 @@ jobs:
       working_directory: "."               # si tu app vive en subcarpetas, ajusta
       run_build: true                      # ejecutar "build"
       build_script: "build"                # npm run build / yarn build / pnpm build
-      test_script: "test -- --coverage"    # genera lcov para Sonar; ajusta a tu proyecto
+      test_script: "test -- --coverage"    # genera lcov para Sonar; ajusta a tu proyect
 
       # --- SonarCloud ---
       sonar_enabled: true
