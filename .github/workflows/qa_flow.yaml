@@ -3,7 +3,7 @@ name: Pipeline CD Desarrollo
 on:
   push:
     branches:
-      - develop
+      - master
   workflow_dispatch:
 
 permissions:
