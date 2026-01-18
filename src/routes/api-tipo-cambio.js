@@ -11,7 +11,7 @@ router.get("/ObtenerTipoCambio", async (req, res) => {
 });
 
 //Filtra por la descripción de Moneda
-router.get("/ObtenerTipoCambio/:moneda", async (req, res) => {
+router.get("/ObtenerTipoCambios/:moneda", async (req, res) => {
     const dataResult = await tipoCambio.getTipoCambio();
     const idTipo = String(req.params.moneda);
     const dataFilter = dataResult.find((data) => data.moneda === idTipo );
