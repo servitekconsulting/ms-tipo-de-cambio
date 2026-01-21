@@ -18,3 +18,10 @@ spec:
           image: servitekcloud.azurecr.io/ms-tipo-de-cambio:latest   # será sustituida por el tag github.sha
           ports:
             - containerPort: 3002
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
