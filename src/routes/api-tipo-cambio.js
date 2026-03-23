@@ -5,7 +5,6 @@ const router = Router();
 
 //Crear los Endpoints
 
-//Muestra todos los tipo de cambios
 router.get("/ObtenerTipoCambio", async (req, res) => {
   res.json(await tipoCambio.getTipoCambio());
 });
